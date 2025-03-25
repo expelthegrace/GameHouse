@@ -30,3 +30,23 @@
 *.exe
 *.out
 *.app
+
+
+# VS
+*.o
+*.obj
+*.so
+*.dll
+*.a
+*.lib
+*.exe
+*.out
+*.i
+*.ii
+*.gch
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
