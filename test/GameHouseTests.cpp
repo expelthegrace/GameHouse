@@ -4,6 +4,9 @@
 
 TEST(PrimerTest, DemostrarGTestMacros)
 {
-    int suma = hola();
-    EXPECT_EQ(suma, 5);
+    Saltador saltador;
+
+    saltador.Update();
+    saltador.CridaEmitPublic();
+    //EXPECT_EQ(suma, 5);
 }

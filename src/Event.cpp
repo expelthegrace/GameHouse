@@ -1,6 +1,19 @@
 #include "Event.h"
 
-int hola()
+
+
+void Saltador::CridaEmit()
 {
-	return 3;
+	JumpEvent.Emit(33);
+}
+
+void Saltador::Update()
+{
+
+	JumpEvent.Connect(this, &Saltador::HeSaltat);
+}
+
+void Saltador::CridaEmitPublic()
+{
+	CridaEmit();
 }

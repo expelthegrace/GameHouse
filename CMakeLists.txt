@@ -14,8 +14,6 @@ add_subdirectory(googletest)
 file(GLOB SOURCES "src/*.cpp")
 file(GLOB HEADERS "src/*.h")
 file(GLOB INLS "src/*.inl")
-
-
 add_library(${This} STATIC ${HEADERS} ${SOURCES} ${INLS})
 
 target_include_directories(${This} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
