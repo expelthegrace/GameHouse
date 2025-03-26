@@ -280,6 +280,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="E:\Coding\GameHouse\src\ConnectionHandler.h" />
     <ClInclude Include="E:\Coding\GameHouse\src\Event.h" />
     <ClCompile Include="E:\Coding\GameHouse\src\Event.cpp" />
   </ItemGroup>

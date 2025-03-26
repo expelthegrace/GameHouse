@@ -6,6 +6,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="E:\Coding\GameHouse\src\ConnectionHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="E:\Coding\GameHouse\src\Event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
