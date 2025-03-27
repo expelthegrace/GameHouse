@@ -1,4 +1,4 @@
-#include "src/Event.h"
+#include "src/PlayerInputEvent.h"
 
 #include <gtest/gtest.h>
 
@@ -13,7 +13,7 @@ public:
     }
 
 public:
-    EventBase<int> jumpEvent;
+    PlayerInputEvent jumpEvent;
 };
 
 class Player
@@ -29,7 +29,7 @@ private:
 public:
     void StandUp()
     {
-        jumpConnection = input->jumpEvent.Connect(this, &Player::Jump);
+        jumpConnection = input->jumpEvent.Connect(this, &Player::Jump); // aquesta es la crida 
     }
 
     void Sit()

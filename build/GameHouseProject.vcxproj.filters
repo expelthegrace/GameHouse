@@ -4,12 +4,18 @@
     <ClCompile Include="E:\Coding\GameHouse\src\Event.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="E:\Coding\GameHouse\src\PlayerInputEvent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="E:\Coding\GameHouse\src\ConnectionHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="E:\Coding\GameHouse\src\Event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Coding\GameHouse\src\PlayerInputEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

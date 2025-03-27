@@ -18,7 +18,7 @@ private:
 public:
     ConnectionHandler() = default;
     ConnectionHandler(ConnectionHandler&&) = delete; //MARC es podrien passar els dos a default
-    ConnectionHandler& operator=(ConnectionHandler&& other)
+    ConnectionHandler& operator=(ConnectionHandler&& other) //MARC l'he definit jo per poder ficar breakpoints
     {
         if (this != &other)
         {

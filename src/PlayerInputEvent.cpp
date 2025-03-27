@@ -36,7 +36,7 @@ public:
 
 private:
     
-    // object and its callback method for this event. For now limted to one per object.
+    // maped object and its callback method for this event. For now limted to one per object instance.
     std::unordered_map<void*, CallbackFunc> ConnectedObjects;
 
 };
