@@ -2,36 +2,56 @@
 
 #include "Event.h"
 
-template <typename T>
+template <typename payload_t>
 class ConnectionHandler
 {
-public:
-    ConnectionHandler(ConnectionHandler&&) = default;
-    ConnectionHandler& operator=(ConnectionHandler&&) = default;
-
-    ~ConnectionHandler();
+    template<typename payload_t>
+    friend class EventBase;
 
 private:
-    ConnectionHandler(EventBase<T>* eventHandled, void* callbackObject) :
-        eventHandled(eventHandled),
+    template<template<typename> class EventBase, typename payload_t>
+    ConnectionHandler(EventBase<payload_t>* eventHandledPtr, void* callbackObject) :
+        eventHandledPtr(eventHandledPtr),
         callbackObject(callbackObject)
     {}
 
-    ConnectionHandler() = delete;
+public:
+    ConnectionHandler() = default;
+    ConnectionHandler(ConnectionHandler&&) = delete; //MARC es podrien passar els dos a default
+    ConnectionHandler& operator=(ConnectionHandler&& other)
+    {
+        if (this != &other)
+        {
+            eventHandledPtr = other.eventHandledPtr;
+            callbackObject = other.callbackObject;
+
+            other.eventHandledPtr = nullptr;
+            other.callbackObject= nullptr;
+        }
+
+        std::cout << "Copia &&" << std::endl;
+
+
+        return *this;
+    }
+
+    ~ConnectionHandler();
+
     ConnectionHandler(const ConnectionHandler&) = delete;
     ConnectionHandler& operator=(const ConnectionHandler&) = delete;
 
 private:
-    EventBase<T>* eventHandled;
-    void* callbackObject;
+    EventBase<payload_t>* eventHandledPtr = nullptr;
+    void* callbackObject = nullptr;
 };
 
-template<typename T>
-inline ConnectionHandler<T>::~ConnectionHandler()
+template<typename payload_t>
+inline ConnectionHandler<payload_t>::~ConnectionHandler()
 {
-    if (eventHandled != nullptr)
+    if (eventHandledPtr != nullptr)
     {
-        eventHandled->Disconnect(callbackObject);
+        std::cout << "Disconnected" << std::endl;
+        eventHandledPtr->Disconnect(callbackObject);
     }
 }
 

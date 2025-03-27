@@ -18,16 +18,18 @@ public:
 
 class Player
 {
+
 private:
     void Jump(int meters)
     {
         std::cout << "jumped in meters: " << meters << std::endl;
+        hasJumped = true;
     }
 
 public:
     void StandUp()
     {
-        input->jumpEvent.Connect(this, &Player::Jump);
+        jumpConnection = input->jumpEvent.Connect(this, &Player::Jump);
     }
 
     void Sit()
@@ -35,7 +37,12 @@ public:
         input->jumpEvent.Disconnect(this);
     }
 
-    Input* input;
+public:
+    bool hasJumped = false;
+    Input* input = nullptr;
+
+private:
+    ConnectionHandler<int> jumpConnection;
 };
 
 TEST(ConnectionTest, Connect)
@@ -48,5 +55,32 @@ TEST(ConnectionTest, Connect)
 
     input.Update();
 
-    //MARC aqui hauria de fer alguna comprovacio perque passi o no el test
+    EXPECT_EQ(player.hasJumped, true);
+}
+
+TEST(ConnectionTest, Disconnect)
+{
+    Input input;
+    Player player;
+    player.input = &input;
+
+    player.StandUp();
+    player.Sit();
+
+    input.Update();
+
+    EXPECT_EQ(player.hasJumped, false);
+}
+
+TEST(ConnectionTest, Autodisconnection)
+{
+    Input input;
+    Player* newPlayer = new Player();
+    newPlayer->input = &input;
+
+    newPlayer->StandUp();
+    delete newPlayer;
+    newPlayer = nullptr;
+
+    ASSERT_NO_THROW(input.Update(););
 }
