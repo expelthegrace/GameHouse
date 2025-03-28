@@ -20,7 +20,7 @@ public:
     EventBase& operator=(EventBase&&) = delete;
 
     template <typename object_t>
-    [[nodiscard]] ConnectionHandler<payload_t>&& Connect(object_t* objectPtr, void (object_t::* func)(payload_t))
+    [[nodiscard]] ConnectionHandler<payload_t> Connect(object_t* objectPtr, void (object_t::* func)(payload_t))
     {
         CallbackFunc callbackMethod = std::bind(func, objectPtr, std::placeholders::_1);
         ConnectedObjects.try_emplace(reinterpret_cast<void*>(objectPtr), callbackMethod);

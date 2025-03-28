@@ -1,3 +1,5 @@
+#include "src/EntityInteractionEvent.h"
+#include "src/GameStateChangeEvent.h"
 #include "src/PlayerInputEvent.h"
 
 #include <gtest/gtest.h>
@@ -22,14 +24,14 @@ class Player
 private:
     void Jump(int meters)
     {
-        std::cout << "jumped in meters: " << meters << std::endl;
+        std::cout << "Jumped in meters: " << meters << std::endl;
         hasJumped = true;
     }
 
 public:
     void StandUp()
     {
-        jumpConnection = input->jumpEvent.Connect(this, &Player::Jump); // aquesta es la crida 
+        jumpConnection = input->jumpEvent.Connect(this, &Player::Jump);
     }
 
     void Sit()
@@ -45,7 +47,9 @@ private:
     ConnectionHandler<int> jumpConnection;
 };
 
-TEST(ConnectionTest, Connect)
+//////////////////////////////////////////////////////
+
+TEST(ConnectionTests, Connect)
 {
     Input input;
     Player player;
@@ -58,7 +62,7 @@ TEST(ConnectionTest, Connect)
     EXPECT_EQ(player.hasJumped, true);
 }
 
-TEST(ConnectionTest, Disconnect)
+TEST(ConnectionTests, Disconnect)
 {
     Input input;
     Player player;
@@ -72,7 +76,7 @@ TEST(ConnectionTest, Disconnect)
     EXPECT_EQ(player.hasJumped, false);
 }
 
-TEST(ConnectionTest, Autodisconnection)
+TEST(ConnectionTests, Autodisconnection)
 {
     Input input;
     Player* newPlayer = new Player();

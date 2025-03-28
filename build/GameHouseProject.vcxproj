@@ -281,10 +281,11 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="E:\Coding\GameHouse\src\ConnectionHandler.h" />
+    <ClInclude Include="E:\Coding\GameHouse\src\EntityInteractionEvent.h" />
     <ClInclude Include="E:\Coding\GameHouse\src\Event.h" />
+    <ClInclude Include="E:\Coding\GameHouse\src\GameStateChangeEvent.h" />
     <ClInclude Include="E:\Coding\GameHouse\src\PlayerInputEvent.h" />
     <ClCompile Include="E:\Coding\GameHouse\src\Event.cpp" />
-    <ClCompile Include="E:\Coding\GameHouse\src\PlayerInputEvent.cpp" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

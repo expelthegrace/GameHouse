@@ -17,20 +17,21 @@ private:
 
 public:
     ConnectionHandler() = default;
-    ConnectionHandler(ConnectionHandler&&) = delete; //MARC es podrien passar els dos a default
-    ConnectionHandler& operator=(ConnectionHandler&& other) //MARC l'he definit jo per poder ficar breakpoints
+    ConnectionHandler(ConnectionHandler&& i_other)
+        : eventHandledPtr(i_other.eventHandledPtr)
+        , callbackObject(i_other.callbackObject)
+
     {
-        if (this != &other)
-        {
-            eventHandledPtr = other.eventHandledPtr;
-            callbackObject = other.callbackObject;
+        i_other.eventHandledPtr = nullptr;
+        i_other.callbackObject = nullptr;
+    }
+    ConnectionHandler& operator=(ConnectionHandler&& i_other)
+    {
+        eventHandledPtr = i_other.eventHandledPtr;
+        callbackObject = i_other.callbackObject;
 
-            other.eventHandledPtr = nullptr;
-            other.callbackObject= nullptr;
-        }
-
-        std::cout << "Copia &&" << std::endl;
-
+        i_other.eventHandledPtr = nullptr;
+        i_other.callbackObject = nullptr;
 
         return *this;
     }
@@ -50,7 +51,6 @@ inline ConnectionHandler<payload_t>::~ConnectionHandler()
 {
     if (eventHandledPtr != nullptr)
     {
-        std::cout << "Disconnected" << std::endl;
         eventHandledPtr->Disconnect(callbackObject);
     }
 }
