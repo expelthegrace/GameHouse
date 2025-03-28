@@ -17,21 +17,21 @@ private:
 
 public:
     ConnectionHandler() = default;
-    ConnectionHandler(ConnectionHandler&& i_other)
-        : eventHandledPtr(i_other.eventHandledPtr)
-        , callbackObject(i_other.callbackObject)
+    ConnectionHandler(ConnectionHandler&& other)
+        : eventHandledPtr(other.eventHandledPtr)
+        , callbackObject(other.callbackObject)
 
     {
-        i_other.eventHandledPtr = nullptr;
-        i_other.callbackObject = nullptr;
+        other.eventHandledPtr = nullptr;
+        other.callbackObject = nullptr;
     }
-    ConnectionHandler& operator=(ConnectionHandler&& i_other)
+    ConnectionHandler& operator=(ConnectionHandler&& other)
     {
-        eventHandledPtr = i_other.eventHandledPtr;
-        callbackObject = i_other.callbackObject;
+        eventHandledPtr = other.eventHandledPtr;
+        callbackObject = other.callbackObject;
 
-        i_other.eventHandledPtr = nullptr;
-        i_other.callbackObject = nullptr;
+        other.eventHandledPtr = nullptr;
+        other.callbackObject = nullptr;
 
         return *this;
     }

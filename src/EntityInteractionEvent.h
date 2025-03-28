@@ -19,6 +19,6 @@ namespace Gameplay
 	};
 }
 
-class EntityInteractionEvent : public EventBase<Gameplay::InteractionData>
+class EntityInteractionEvent : public EventBase<const Gameplay::InteractionData&>
 {
 };

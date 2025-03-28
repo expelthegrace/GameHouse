@@ -1,90 +1,49 @@
-#include "src/EntityInteractionEvent.h"
-#include "src/GameStateChangeEvent.h"
-#include "src/PlayerInputEvent.h"
+#include "TestingClasses.cpp"
 
 #include <gtest/gtest.h>
 
 
-class Input
-{
-public:
-    void Update()
-    {
-        //if jump button pressed
-        jumpEvent.Emit(33);
-    }
-
-public:
-    PlayerInputEvent jumpEvent;
-};
-
-class Player
-{
-
-private:
-    void Jump(int meters)
-    {
-        std::cout << "Jumped in meters: " << meters << std::endl;
-        hasJumped = true;
-    }
-
-public:
-    void StandUp()
-    {
-        jumpConnection = input->jumpEvent.Connect(this, &Player::Jump);
-    }
-
-    void Sit()
-    {
-        input->jumpEvent.Disconnect(this);
-    }
-
-public:
-    bool hasJumped = false;
-    Input* input = nullptr;
-
-private:
-    ConnectionHandler<int> jumpConnection;
-};
-
-//////////////////////////////////////////////////////
-
 TEST(ConnectionTests, Connect)
 {
-    Input input;
-    Player player;
-    player.input = &input;
+    EventTriggerSimulator eventTriggerSim;
+    Pawn pawn;
+    pawn.eventTriggerSim = &eventTriggerSim;
 
-    player.StandUp();
+    pawn.Activate();
 
-    input.Update();
+    eventTriggerSim.TriggerEvents();
 
-    EXPECT_EQ(player.hasJumped, true);
+    EXPECT_EQ(pawn.inputEventCallbackTriggered, true);
+    EXPECT_EQ(pawn.gameStateCallbackTriggered, true);
+    EXPECT_EQ(pawn.entityInteractionCallbackTriggered, true);
 }
 
 TEST(ConnectionTests, Disconnect)
 {
-    Input input;
-    Player player;
-    player.input = &input;
+    EventTriggerSimulator eventTriggerSim;
+    Pawn pawn;
+    pawn.eventTriggerSim = &eventTriggerSim;
 
-    player.StandUp();
-    player.Sit();
+    pawn.Activate();
+    pawn.Sleep();
 
-    input.Update();
+    eventTriggerSim.TriggerEvents();
 
-    EXPECT_EQ(player.hasJumped, false);
+    EXPECT_EQ(pawn.inputEventCallbackTriggered, false);
+    EXPECT_EQ(pawn.gameStateCallbackTriggered, false);
+    EXPECT_EQ(pawn.entityInteractionCallbackTriggered, false);
 }
 
 TEST(ConnectionTests, Autodisconnection)
 {
-    Input input;
-    Player* newPlayer = new Player();
-    newPlayer->input = &input;
+    EventTriggerSimulator eventTriggerSim;
+    Pawn* pawn = new Pawn();
+    pawn->eventTriggerSim = &eventTriggerSim;
 
-    newPlayer->StandUp();
-    delete newPlayer;
-    newPlayer = nullptr;
+    pawn->Activate();
+    delete pawn;
+    pawn = nullptr;
 
-    ASSERT_NO_THROW(input.Update(););
+    ASSERT_NO_THROW(eventTriggerSim.TriggerEvents(););
+
 }

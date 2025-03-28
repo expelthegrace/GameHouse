@@ -26,7 +26,7 @@ public:
         ConnectedObjects.try_emplace(reinterpret_cast<void*>(objectPtr), callbackMethod);
 
         ConnectionHandler<payload_t> newHandler(this, objectPtr);
-        return std::move(newHandler);
+        return newHandler;
     }
 
     template <typename object_t>
