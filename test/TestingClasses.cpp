@@ -18,7 +18,7 @@ public:
     }
 
 public:
-    PlayerInputEvent jumpEvent;
+    PlayerInputEvent<int> jumpEvent;
     GameStateChangeEvent gameStateEvent;
     EntityInteractionEvent interactionEvent;
 };
@@ -52,9 +52,9 @@ public:
 
     void Sleep()
     {
-        eventTriggerSim->jumpEvent.Disconnect(this);
-        eventTriggerSim->gameStateEvent.Disconnect(this);
-        eventTriggerSim->interactionEvent.Disconnect(this);
+        jumpConnection.Disconnect();
+        gameStateConnection.Disconnect();
+        interactionConnection.Disconnect();
     }
 
 public:

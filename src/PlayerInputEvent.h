@@ -2,9 +2,7 @@
 
 #include "Event.h"
 
-/*
-* This class' payload represents the key pressed
-*/
-class PlayerInputEvent : public EventBase<int>
+template <typename payload_t>
+class PlayerInputEvent : public EventBase<payload_t>
 {
 };

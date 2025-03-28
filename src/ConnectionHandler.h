@@ -41,6 +41,8 @@ public:
     ConnectionHandler(const ConnectionHandler&) = delete;
     ConnectionHandler& operator=(const ConnectionHandler&) = delete;
 
+    void Disconnect();
+
 private:
     EventBase<payload_t>* eventHandledPtr = nullptr;
     void* callbackObject = nullptr;
@@ -49,9 +51,17 @@ private:
 template<typename payload_t>
 inline ConnectionHandler<payload_t>::~ConnectionHandler()
 {
+    Disconnect();
+}
+
+template<typename payload_t>
+inline void ConnectionHandler<payload_t>::Disconnect()
+{
     if (eventHandledPtr != nullptr)
     {
         eventHandledPtr->Disconnect(callbackObject);
+        eventHandledPtr = nullptr;
+        callbackObject = nullptr;
     }
 }
 
