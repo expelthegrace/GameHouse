@@ -44,16 +44,20 @@ private:
 template <typename payload_t>
 void EventBase<payload_t>::Emit(payload_t payload)
 {
-    for (auto& [objectPtr, objectCallback] : ConnectedObjects)
+    auto connectionsIt = ConnectedObjects.begin();
+
+    while (connectionsIt != ConnectedObjects.end())
     {
+        const auto& [objectPtr, objectCallback] = *connectionsIt;
+
         if (objectPtr != nullptr)
         {
             objectCallback(payload);
+            connectionsIt++;
         }
         else
         {
-            Disconnect(objectPtr);
-            //TODO: trigger a warning
+            connectionsIt = ConnectedObjects.erase(connectionsIt);
         }
     }
 }
